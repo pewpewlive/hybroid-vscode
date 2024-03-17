@@ -1,0 +1,25 @@
+{
+  "name": "livecode",
+  "displayName": "Livecode",
+  "description": "A programming language tailored for PewPew Live level development",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.87.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [{
+      "id": "livecode",
+      "aliases": ["Livecode", "livecode"],
+      "extensions": [".lc",".livecode"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "livecode",
+      "scopeName": "scope.livecode",
+      "path": "./syntaxes/livecode.tmLanguage.json"
+    }]
+  }
+}
