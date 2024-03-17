@@ -1,5 +1,5 @@
 {
-  "scopeName": "scope.livecode",
+  "scopeName": "scope.hybroid",
   "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
   "name": "Livecode",
   "patterns": [
@@ -14,7 +14,7 @@
     "keywords": {
       "patterns": [
         {
-          "name": "keyword.control.livecode",
+          "name": "keyword.control.hybroid",
           "match": "\\b(if|while|for|return|in|with|to|as|repeat|tick|spawn|enum|use|fn|match)\\b"
         },
         {
@@ -24,82 +24,60 @@
         },
         {
           "comment": "logical AND, borrow references",
-          "name": "keyword.operator.borrow.and.livecode",
+          "name": "keyword.operator.borrow.and.hybroid",
           "match": "&(?![&=])"
         },
         {
           "comment": "assignment operators",
-          "name": "keyword.operator.assignment.livecode",
+          "name": "keyword.operator.assignment.hybroid",
           "match": "(\\+=|-=|\\*=|/=|%=|\\^=|&=|\\|=|<<=|>>=)"
         },
         {
           "comment": "single equal",
-          "name": "keyword.operator.assignment.equal.livecode",
+          "name": "keyword.operator.assignment.equal.hybroid",
           "match": "(?<![<>])=(?!=|>)"
         },
         {
           "comment": "comparison operators",
-          "name": "keyword.operator.comparison.livecode",
+          "name": "keyword.operator.comparison.hybroid",
           "match": "(=(=)?(?!>)|!=|<=|(?<!=)>=)"
         },
         {
           "comment": "math operators",
-          "name": "keyword.operator.math.livecode",
+          "name": "keyword.operator.math.hybroid",
           "match": "(([+%]|(\\*(?!\\w)))(?!=))|(-(?!>))|(/(?!/))"
-        },
-        {
-          "comment": "decimal integers and floats",
-          "name": "constant.numeric.decimal.rust",
-          "match": "\\b\\d[\\d_]*(\\.?)[\\d_]*(?:(E|e)([+-]?)([\\d_]+))?(f32|f64|i128|i16|i32|i64|i8|isize|u128|u16|u32|u64|u8|usize)?\\b",
-          "captures": {
-            "1": {
-              "name": "punctuation.separator.dot.decimal.rust"
-            },
-            "2": {
-              "name": "keyword.operator.exponent.rust"
-            },
-            "3": {
-              "name": "keyword.operator.exponent.sign.rust"
-            },
-            "4": {
-              "name": "constant.numeric.decimal.exponent.mantissa.rust"
-            },
-            "5": {
-              "name": "entity.name.type.numeric.rust"
-            }
-          }
         }
       ]
     },
     "single_strings": {
-      "name": "string.quoted.single.livecode",
+      "name": "string.quoted.single.hybroid",
       "begin": "'",
       "end": "'",
       "patterns": [
         {
-          "name": "constant.character.escape.livecode",
+          "name": "constant.character.escape.hybroid",
           "match": "\\\\."
         }
       ]
     },
     "double_strings": {
-      "name": "string.quoted.double.livecode",
+      "name": "string.quoted.double.hybroid",
       "begin": "\"",
       "end": "\"",
       "patterns": [
         {
-          "name": "constant.character.escape.livecode",
+          "name": "constant.character.escape.hybroid",
           "match": "\\\\."
         }
       ]
     },
     "single_comments": {
-      "name": "comment.line.double-slash.livecode",
+      "name": "comment.line.double-slash.hybroid",
       "begin": "//",
       "end": "\n"
     },
     "block_comments": {
-      "name": "comment.block.livecode",
+      "name": "comment.block.hybroid",
       "begin": "/\\*",
       "end": "\\*/"
     },
@@ -107,8 +85,8 @@
 			"patterns": [
 				{
 					"comment": "variables",
-					"name": "variable.other.rust",
-					"match": "\\b(?<!(?<!\\.)\\.)(?:r#(?!(crate|[Ss]elf|super)))?[a-z0-9_]+\\b"
+					"name": "variable.other.hybroid",
+					"match": "\\b(?<!(?<!\\.)\\.)(?:r#(?!([Ss]elf)))?[a-z0-9_]+\\b"
 				}
 			]
 		}

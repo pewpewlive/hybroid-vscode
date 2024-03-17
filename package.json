@@ -1,6 +1,6 @@
 {
-  "name": "livecode",
-  "displayName": "Livecode",
+  "name": "hybroid",
+  "displayName": "Hybroid",
   "description": "A programming language tailored for PewPew Live level development",
   "version": "0.0.1",
   "engines": {
@@ -11,15 +11,15 @@
   ],
   "contributes": {
     "languages": [{
-      "id": "livecode",
-      "aliases": ["Livecode", "livecode"],
-      "extensions": [".lc",".livecode"],
+      "id": "hybroid",
+      "aliases": ["Hybroid", "hybroid"],
+      "extensions": [".hyb",".hybroid"],
       "configuration": "./language-configuration.json"
     }],
     "grammars": [{
-      "language": "livecode",
-      "scopeName": "scope.livecode",
-      "path": "./syntaxes/livecode.tmLanguage.json"
+      "language": "hybroid",
+      "scopeName": "scope.hybroid",
+      "path": "./syntaxes/hybroid.tmLanguage.json"
     }]
   }
 }
