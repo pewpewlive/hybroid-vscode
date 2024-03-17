@@ -1,6 +1,6 @@
-# Livecode for VS Code
+# Hybroid language support for VS Code
 
-This is the README for your extension "livecode". After writing up a brief description, we recommend including the following sections.
+This is the README for your extension "hybroid". After writing up a brief description, we recommend including the following sections.
 
 ## Features
 
