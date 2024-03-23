@@ -8,14 +8,127 @@
     { "include": "#double_strings" },
     { "include": "#single_comments" },
     { "include": "#block_comments" },
-    { "include": "#variables" }
+    { "include": "#constants" },
+    { "include": "#function-call" },
+    { "include": "#function-name" },
+    { "include": "#function-arguments" },
+    { "include": "#number" }
   ],
   "repository": {
+    "block-comments": {
+      "patterns": [
+        {
+          "comment": "empty block comments",
+          "name": "comment.block.hybroid",
+          "match": "/\\*\\*/"
+        },
+        {
+          "comment": "block documentation comments",
+          "name": "comment.block.documentation.hybroid",
+          "begin": "/\\*\\*",
+          "end": "\\*/",
+          "patterns": [
+            {
+              "include": "#block-comments"
+            }
+          ]
+        },
+        {
+          "comment": "block comments",
+          "name": "comment.block.hybroid",
+          "begin": "/\\*(?!\\*)",
+          "end": "\\*/",
+          "patterns": [
+            {
+              "include": "#block-comments"
+            }
+          ]
+        }
+      ]
+    },
+    "function-call": {
+      "name": "meta.function-call.hybroid",
+      "comment": "Regular function call of the type \"name(args)\"",
+      "begin": "(?x)\n  \\b(?=\n    ([[:alpha:]_]\\w*) \\s* (\\()\n  )\n",
+      "end": "(\\))",
+      "endCaptures": {
+        "1": {
+          "name": "punctuation.definition.arguments.end.hybroid"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#function-name"
+        },
+        {
+          "include": "#function-arguments"
+        }
+      ]
+    },
+    "function-name": {
+      "patterns": [
+        {
+          "comment": "Some color schemas support meta.function-call.generic scope",
+          "name": "meta.function-call.generic.hybroid",
+          "match": "(?x)\n  \\b ([[:alpha:]_]\\w*) \\b\n"
+        }
+      ]
+    },
+    "function-arguments": {
+      "begin": "(\\()",
+      "end": "(?=\\))(?!\\)\\s*\\()",
+      "beginCaptures": {
+        "1": {
+          "name": "punctuation.definition.arguments.begin.hybroid"
+        }
+      },
+      "contentName": "meta.function-call.arguments.hybroid",
+      "patterns": [
+        {
+          "name": "punctuation.separator.arguments.hybroid",
+          "match": "(,)"
+        },
+        {
+          "match": "(?x)\n  (?:(?<=[,(])|^) \\s* (\\*{1,2})\n",
+          "captures": {
+            "1": {
+              "name": "keyword.operator.unpacking.arguments.hybroid"
+            }
+          }
+        },
+        {
+          "match": "\\b([[:alpha:]_]\\w*)\\s*(=)(?!=)",
+          "captures": {
+            "1": {
+              "name": "variable.parameter.function-call.hytbroid"
+            },
+            "2": {
+              "name": "keyword.operator.assignment.hybroid"
+            }
+          }
+        },
+        {
+          "name": "keyword.operator.assignment.hybroid",
+          "match": "=(?!=)"
+        },
+        {
+          "match": "\\s*(\\))\\s*(\\()",
+          "captures": {
+            "1": {
+              "name": "punctuation.definition.arguments.end.hybroid"
+            },
+            "2": {
+              "name": "punctuation.definition.arguments.begin.hybroid"
+            }
+          }
+        }
+      ]
+    },
     "keywords": {
       "patterns": [
         {
           "name": "keyword.control.hybroid",
-          "match": "\\b(if|else|while|for|repeat|tick|return|break|continue|in|with|to|as|spawn|enum|use|fn|trait|match|entity|class)\\b"
+          "match": "\\b(by|add|self|fn|tick|repeat|for|while|if|else|return|break|continue|let|pub|const|in|as|to|with|enum|use|spawn|trait|entity|find|remove|match|from)\\b"
         },
         {
           "comment": "logical operators",
@@ -39,7 +152,7 @@
         },
         {
           "comment": "math operators",
-          "name": "keyword.operator.math.hybroid",
+          "name": "keyword.operator.math.rust",
           "match": "(([+%]|(\\*(?!\\w)))(?!=))|(-(?!>))|(/(?!/))"
         }
       ]
@@ -66,24 +179,94 @@
         }
       ]
     },
+    "number": {
+			"name": "constant.numeric.python",
+			"patterns": [
+				{
+					"include": "#number-float"
+				},
+				{
+					"include": "#number-dec"
+				},
+				{
+					"include": "#number-hex"
+				},
+				{
+					"include": "#number-oct"
+				},
+				{
+					"include": "#number-bin"
+				},
+				{
+					"include": "#number-long"
+				}
+			]
+		},
+    "number-float": {
+			"name": "constant.numeric.float.hybroid",
+			"match": "(?x)\n  (?<! \\w)(?:\n    (?:\n      \\.[0-9](?: _?[0-9] )*\n      |\n      [0-9](?: _?[0-9] )* \\. [0-9](?: _?[0-9] )*\n      |\n      [0-9](?: _?[0-9] )* \\.\n    ) (?: [eE][+-]?[0-9](?: _?[0-9] )* )?\n    |\n    [0-9](?: _?[0-9] )* (?: [eE][+-]?[0-9](?: _?[0-9] )* )\n  )([jJ])?\\b\n",
+			"captures": {
+				"1": {
+					"name": "storage.type.imaginary.number.hybroid"
+				}
+			}
+		},
+		"number-dec": {
+			"name": "constant.numeric.dec.hybroid",
+			"match": "(?x)\n  (?<![\\w\\.])(?:\n      [1-9](?: _?[0-9] )*\n      |\n      0+\n      |\n      [0-9](?: _?[0-9] )* ([jJ])\n      |\n      0 ([0-9]+)(?![eE\\.])\n  )\\b\n",
+			"captures": {
+				"1": {
+					"name": "storage.type.imaginary.number.hybroid"
+				},
+				"2": {
+					"name": "invalid.illegal.dec.hybroid"
+				}
+			}
+		},
+		"number-hex": {
+			"name": "constant.numeric.hex.hybroid",
+			"match": "(?x)\n  (?<![\\w\\.])\n    (0[xX]) (_?[0-9a-fA-F])+\n  \\b\n",
+			"captures": {
+				"1": {
+					"name": "storage.type.number.hybroid"
+				}
+			}
+		},
+		"number-oct": {
+			"name": "constant.numeric.oct.hybroid",
+			"match": "(?x)\n  (?<![\\w\\.])\n    (0[oO]) (_?[0-7])+\n  \\b\n",
+			"captures": {
+				"1": {
+					"name": "storage.type.number.hybroid"
+				}
+			}
+		},
+		"number-bin": {
+			"name": "constant.numeric.bin.hybroid",
+			"match": "(?x)\n  (?<![\\w\\.])\n    (0[bB]) (_?[01])+\n  \\b\n",
+			"captures": {
+				"1": {
+					"name": "storage.type.number.hybroid"
+				}
+			}
+		},
+    "number-long": {
+			"name": "constant.numeric.bin.hybroid",
+			"match": "(?x)\n  (?<![\\w\\.])\n    ([1-9][0-9]* | 0) ([lL])\n  \\b\n",
+			"captures": {
+				"2": {
+					"name": "storage.type.number.hybroid"
+				}
+			}
+		},
     "single_comments": {
       "name": "comment.line.double-slash.hybroid",
       "begin": "//",
       "end": "\n"
     },
-    "block_comments": {
-      "name": "comment.block.hybroid",
-      "begin": "/\\*",
-      "end": "\\*/"
-    },
-		"variables": {
-			"patterns": [
-				{
-					"comment": "variables",
-					"name": "variable.other.hybroid",
-					"match": "\\b(?<!(?<!\\.)\\.)(?:r#(?!([Ss]elf)))?[a-z0-9_]+\\b"
-				}
-			]
-		}
+    "constants": {
+      "name": "constant.language.hybroid",
+      "match": "\\b(true|false|nil)\\b"
+    }
   }
 }
