@@ -15,22 +15,17 @@
       "patterns": [
         {
           "name": "keyword.control.hybroid",
-          "match": "\\b(if|while|for|return|in|with|to|as|repeat|tick|spawn|enum|use|fn|match)\\b"
+          "match": "\\b(if|else|while|for|repeat|tick|return|break|continue|in|with|to|as|spawn|enum|use|fn|trait|match|entity|class)\\b"
         },
         {
           "comment": "logical operators",
-          "name": "keyword.operator.logical.livecode",
-          "match": "(\\^|\\||\\|\\||&&|<<|>>|!)(?!=)"
-        },
-        {
-          "comment": "logical AND, borrow references",
-          "name": "keyword.operator.borrow.and.hybroid",
-          "match": "&(?![&=])"
+          "name": "keyword.operator.logical.hybroid",
+          "match": "(or|and|not)(?!=)"
         },
         {
           "comment": "assignment operators",
           "name": "keyword.operator.assignment.hybroid",
-          "match": "(\\+=|-=|\\*=|/=|%=|\\^=|&=|\\|=|<<=|>>=)"
+          "match": "(\\+=|-=|\\*=|/=|%=|\\^=|\\|=)"
         },
         {
           "comment": "single equal",
