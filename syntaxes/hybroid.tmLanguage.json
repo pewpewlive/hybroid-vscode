@@ -152,7 +152,7 @@
         },
         {
           "comment": "math operators",
-          "name": "keyword.operator.math.rust",
+          "name": "keyword.operator.math.hybroid",
           "match": "(([+%]|(\\*(?!\\w)))(?!=))|(-(?!>))|(/(?!/))"
         }
       ]
@@ -180,7 +180,7 @@
       ]
     },
     "number": {
-			"name": "constant.numeric.python",
+			"name": "constant.numeric.hybroid",
 			"patterns": [
 				{
 					"include": "#number-float"
