@@ -1,7 +1,7 @@
 {
   "scopeName": "scope.hybroid",
   "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
-  "name": "Livecode",
+  "name": "Hybroid",
   "patterns": [
     { "include": "#keywords" },
     { "include": "#single_strings" },
