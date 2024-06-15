@@ -3,11 +3,11 @@
   "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
   "name": "Hybroid",
   "patterns": [
-    { "include": "#keywords" },
     { "include": "#single_strings" },
     { "include": "#double_strings" },
+    { "include": "#block-comments" },
     { "include": "#single_comments" },
-    { "include": "#block_comments" },
+    { "include": "#keywords" },
     { "include": "#constants" },
     { "include": "#function-call" },
     { "include": "#function-name" },
@@ -16,35 +16,10 @@
   ],
   "repository": {
     "block-comments": {
-      "patterns": [
-        {
-          "comment": "empty block comments",
-          "name": "comment.block.hybroid",
-          "match": "/\\*\\*/"
-        },
-        {
-          "comment": "block documentation comments",
-          "name": "comment.block.documentation.hybroid",
-          "begin": "/\\*\\*",
-          "end": "\\*/",
-          "patterns": [
-            {
-              "include": "#block-comments"
-            }
-          ]
-        },
-        {
-          "comment": "block comments",
-          "name": "comment.block.hybroid",
-          "begin": "/\\*(?!\\*)",
-          "end": "\\*/",
-          "patterns": [
-            {
-              "include": "#block-comments"
-            }
-          ]
-        }
-      ]
+      "comment": "block comments",
+      "name": "comment.block.hybroid",
+      "begin": "(/\\*)",
+      "end": "(\\*/)"
     },
     "function-call": {
       "name": "meta.function-call.hybroid",
@@ -128,7 +103,7 @@
       "patterns": [
         {
           "name": "keyword.control.hybroid",
-          "match": "\\b(by|add|self|fn|tick|repeat|for|while|if|else|return|break|continue|let|pub|const|in|as|to|with|enum|use|spawn|trait|entity|find|remove|match|from)\\b"
+          "match": "\\b(number|fixed|bool|text|by|add|self|fn|tick|repeat|for|while|if|else|env|return|break|continue|let|new|pub|const|in|as|to|with|enum|use|spawn|struct|entity|find|remove|match|yield|from)\\b"
         },
         {
           "comment": "logical operators",
@@ -153,7 +128,7 @@
         {
           "comment": "math operators",
           "name": "keyword.operator.math.hybroid",
-          "match": "(([+%]|(\\*(?!\\w)))(?!=))|(-(?!>))|(/(?!/))"
+          "match": "(?<!\/)(?<!\/\/)(?<!\/\\*)(\\+=|\\-=|\\*=|\\\/=|\\^=|%=|(?<!\\\/\\*)\/|(?<!\\\/)\\\/|\\+|\\-|\\*|\\^|%)(?!\/)(?!\/\/)"
         }
       ]
     },
@@ -180,85 +155,85 @@
       ]
     },
     "number": {
-			"name": "constant.numeric.hybroid",
-			"patterns": [
-				{
-					"include": "#number-float"
-				},
-				{
-					"include": "#number-dec"
-				},
-				{
-					"include": "#number-hex"
-				},
-				{
-					"include": "#number-oct"
-				},
-				{
-					"include": "#number-bin"
-				},
-				{
-					"include": "#number-long"
-				}
-			]
-		},
+      "name": "constant.numeric.hybroid",
+      "patterns": [
+        {
+          "include": "#number-float"
+        },
+        {
+          "include": "#number-dec"
+        },
+        {
+          "include": "#number-hex"
+        },
+        {
+          "include": "#number-oct"
+        },
+        {
+          "include": "#number-bin"
+        },
+        {
+          "include": "#number-long"
+        }
+      ]
+    },
     "number-float": {
-			"name": "constant.numeric.float.hybroid",
-			"match": "(?x)\n  (?<! \\w)(?:\n    (?:\n      \\.[0-9](?: _?[0-9] )*\n      |\n      [0-9](?: _?[0-9] )* \\. [0-9](?: _?[0-9] )*\n      |\n      [0-9](?: _?[0-9] )* \\.\n    ) (?: [eE][+-]?[0-9](?: _?[0-9] )* )?\n    |\n    [0-9](?: _?[0-9] )* (?: [eE][+-]?[0-9](?: _?[0-9] )* )\n  )([jJ])?\\b\n",
-			"captures": {
-				"1": {
-					"name": "storage.type.imaginary.number.hybroid"
-				}
-			}
-		},
-		"number-dec": {
-			"name": "constant.numeric.dec.hybroid",
-			"match": "(?x)\n  (?<![\\w\\.])(?:\n      [1-9](?: _?[0-9] )*\n      |\n      0+\n      |\n      [0-9](?: _?[0-9] )* ([jJ])\n      |\n      0 ([0-9]+)(?![eE\\.])\n  )\\b\n",
-			"captures": {
-				"1": {
-					"name": "storage.type.imaginary.number.hybroid"
-				},
-				"2": {
-					"name": "invalid.illegal.dec.hybroid"
-				}
-			}
-		},
-		"number-hex": {
-			"name": "constant.numeric.hex.hybroid",
-			"match": "(?x)\n  (?<![\\w\\.])\n    (0[xX]) (_?[0-9a-fA-F])+\n  \\b\n",
-			"captures": {
-				"1": {
-					"name": "storage.type.number.hybroid"
-				}
-			}
-		},
-		"number-oct": {
-			"name": "constant.numeric.oct.hybroid",
-			"match": "(?x)\n  (?<![\\w\\.])\n    (0[oO]) (_?[0-7])+\n  \\b\n",
-			"captures": {
-				"1": {
-					"name": "storage.type.number.hybroid"
-				}
-			}
-		},
-		"number-bin": {
-			"name": "constant.numeric.bin.hybroid",
-			"match": "(?x)\n  (?<![\\w\\.])\n    (0[bB]) (_?[01])+\n  \\b\n",
-			"captures": {
-				"1": {
-					"name": "storage.type.number.hybroid"
-				}
-			}
-		},
+      "name": "constant.numeric.float.hybroid",
+      "match": "(?x)\n  (?<! \\w)(?:\n    (?:\n      \\.[0-9](?: _?[0-9] )*\n      |\n      [0-9](?: _?[0-9] )* \\. [0-9](?: _?[0-9] )*\n      |\n      [0-9](?: _?[0-9] )* \\.\n    ) (?: [eE][+-]?[0-9](?: _?[0-9] )* )?\n    |\n    [0-9](?: _?[0-9] )* (?: [eE][+-]?[0-9](?: _?[0-9] )* )\n  )([jJ])?\\b\n",
+      "captures": {
+        "1": {
+          "name": "storage.type.imaginary.number.hybroid"
+        }
+      }
+    },
+    "number-dec": {
+      "name": "constant.numeric.dec.hybroid",
+      "match": "(?x)\n  (?<![\\w\\.])(?:\n      [1-9](?: _?[0-9] )*\n      |\n      0+\n      |\n      [0-9](?: _?[0-9] )* ([jJ])\n      |\n      0 ([0-9]+)(?![eE\\.])\n  )\\b\n",
+      "captures": {
+        "1": {
+          "name": "storage.type.imaginary.number.hybroid"
+        },
+        "2": {
+          "name": "invalid.illegal.dec.hybroid"
+        }
+      }
+    },
+    "number-hex": {
+      "name": "constant.numeric.hex.hybroid",
+      "match": "(?x)\n  (?<![\\w\\.])\n    (0[xX]) (_?[0-9a-fA-F])+\n  \\b\n",
+      "captures": {
+        "1": {
+          "name": "storage.type.number.hybroid"
+        }
+      }
+    },
+    "number-oct": {
+      "name": "constant.numeric.oct.hybroid",
+      "match": "(?x)\n  (?<![\\w\\.])\n    (0[oO]) (_?[0-7])+\n  \\b\n",
+      "captures": {
+        "1": {
+          "name": "storage.type.number.hybroid"
+        }
+      }
+    },
+    "number-bin": {
+      "name": "constant.numeric.bin.hybroid",
+      "match": "(?x)\n  (?<![\\w\\.])\n    (0[bB]) (_?[01])+\n  \\b\n",
+      "captures": {
+        "1": {
+          "name": "storage.type.number.hybroid"
+        }
+      }
+    },
     "number-long": {
-			"name": "constant.numeric.bin.hybroid",
-			"match": "(?x)\n  (?<![\\w\\.])\n    ([1-9][0-9]* | 0) ([lL])\n  \\b\n",
-			"captures": {
-				"2": {
-					"name": "storage.type.number.hybroid"
-				}
-			}
-		},
+      "name": "constant.numeric.bin.hybroid",
+      "match": "(?x)\n  (?<![\\w\\.])\n    ([1-9][0-9]* | 0) ([lL])\n  \\b\n",
+      "captures": {
+        "2": {
+          "name": "storage.type.number.hybroid"
+        }
+      }
+    },
     "single_comments": {
       "name": "comment.line.double-slash.hybroid",
       "begin": "//",
@@ -266,7 +241,7 @@
     },
     "constants": {
       "name": "constant.language.hybroid",
-      "match": "\\b(true|false|nil)\\b"
+      "match": "\\b(true|false)\\b"
     }
   }
 }
