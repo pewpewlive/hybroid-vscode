@@ -1,8 +1,14 @@
 {
   "name": "hybroid",
   "displayName": "Hybroid",
-  "description": "A programming language tailored for PewPew Live level development",
-  "repository": {"url": "https://github.com/pewpewlive/hybroid-vscode"},
+  "description": "Hybroid language support for Visual Studio Code",
+  "publisher": "HybroidTeam",
+  "repository": {
+    "url": "https://github.com/pewpewlive/hybroid-vscode"
+  },
+  "bugs": {
+    "url": "https://github.com/pewpewlive/hybroid-vscode/issues"
+  },
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.87.0"
@@ -10,17 +16,28 @@
   "categories": [
     "Programming Languages"
   ],
+  "icon": "assets/icon.png",
   "contributes": {
-    "languages": [{
-      "id": "hybroid",
-      "aliases": ["Hybroid", "hybroid"],
-      "extensions": [".hyb",".hybroid"],
-      "configuration": "./language-configuration.json"
-    }],
-    "grammars": [{
-      "language": "hybroid",
-      "scopeName": "scope.hybroid",
-      "path": "./syntaxes/hybroid.tmLanguage.json"
-    }]
+    "languages": [
+      {
+        "id": "hybroid",
+        "aliases": [
+          "Hybroid",
+          "hybroid"
+        ],
+        "extensions": [
+          ".hyb",
+          ".hybroid"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "hybroid",
+        "scopeName": "scope.hybroid",
+        "path": "./syntaxes/hybroid.tmLanguage.json"
+      }
+    ]
   }
 }
