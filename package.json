@@ -2,6 +2,7 @@
   "name": "hybroid",
   "displayName": "Hybroid",
   "description": "A programming language tailored for PewPew Live level development",
+  "repository": {"url": "https://github.com/pewpewlive/hybroid-vscode"},
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.87.0"
