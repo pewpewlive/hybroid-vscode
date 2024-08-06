@@ -1,0 +1,77 @@
+{
+  "function declaration": {
+    "prefix": "fn",
+    "body": [
+      "fn ${1:name}(${2:args}) ${3:return_types} {",
+      "  $4",
+      "}"
+    ]
+  },
+  "if statement": {
+    "prefix": "if",
+    "body": [
+      "if ${1:condition} {",
+      "  $2",
+      "}"
+    ],
+  },
+  "if-else statement": {
+    "prefix": "ifelse",
+    "body": [
+      "if ${1:condition} {",
+      "  $2",
+      "} else {",
+      "  $3",
+      "}"
+    ],
+  },
+  "for loop": {
+    "prefix": "for",
+    "body": [
+      "for ${1:index}, ${2:element} in ${3:list} {",
+      "  $4",
+      "}"
+    ]
+  },
+  "while loop": {
+    "prefix": "while",
+    "body": [
+      "while ${1:condition} {",
+      "  $2",
+      "}"
+    ]
+  },
+  "match statement": {
+    "prefix": "match",
+    "body": [
+      "match ${1:key} {",
+      "  ${2:condition} => $3",
+      "  _ => $4",
+      "}"
+    ]
+  },
+  "tick statement": {
+    "prefix": "tick",
+    "body": [
+      "tick {",
+      "  $1",
+      "}"
+    ]
+  },
+  "tick statement with time": {
+    "prefix": "tickwithtime",
+    "body": [
+      "tick with time {",
+      "  $1",
+      "}"
+    ]
+  },
+  "repeat statement": {
+    "prefix": "repeat",
+    "body": [
+      "repeat ${1:condition} {",
+      "  $2",
+      "}"
+    ]
+  }
+}

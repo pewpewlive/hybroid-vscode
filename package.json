@@ -14,7 +14,8 @@
     "vscode": "^1.87.0"
   },
   "categories": [
-    "Programming Languages"
+    "Programming Languages",
+    "Snippets"
   ],
   "icon": "assets/icon.png",
   "contributes": {
@@ -37,6 +38,12 @@
         "language": "hybroid",
         "scopeName": "scope.hybroid",
         "path": "./syntaxes/hybroid.tmLanguage.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "hybroid",
+        "path": "./snippets/hybroid.code-snippets"
       }
     ]
   }
