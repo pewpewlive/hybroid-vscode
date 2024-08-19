@@ -103,7 +103,15 @@
       "patterns": [
         {
           "name": "keyword.control.hybroid",
-          "match": "\\b(number|fixed|bool|text|by|add|self|fn|tick|repeat|for|while|if|else|env|return|break|continue|let|new|pub|const|in|as|to|with|enum|use|spawn|struct|entity|find|remove|match|yield|from)\\b"
+          "match": "(by|add|fn|tick|repeat|for|while|if|else|env|return|break|continue|let|new|pub|const|in|as|to|with|enum|use|spawn|struct|entity|find|remove|match|yield|from)"
+        },
+        {
+          "name": "storage.type.hybroid",
+          "match": "(number|fixed|bool|text)"
+        },
+        {
+          "name": "variable.language.hybroid",
+          "match": "(self)"
         },
         {
           "comment": "logical operators",
