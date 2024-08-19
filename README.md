@@ -15,7 +15,7 @@ Download this extension:
 
 You need to have node.js and vsce (`npm install -g @vscode/vsce`).
 
-Then just do `vsce package` to build the extension.
+Then just run `vsce package` to build the extension.
 
 ## License
 
