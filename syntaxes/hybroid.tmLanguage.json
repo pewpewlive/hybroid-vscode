@@ -1,255 +1,1019 @@
 {
-  "scopeName": "scope.hybroid",
   "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "scopeName": "source.hybroid",
   "name": "Hybroid",
-  "patterns": [
-    { "include": "#single_strings" },
-    { "include": "#double_strings" },
-    { "include": "#block-comments" },
-    { "include": "#single_comments" },
-    { "include": "#keywords" },
-    { "include": "#constants" },
-    { "include": "#function-call" },
-    { "include": "#function-name" },
-    { "include": "#function-arguments" },
-    { "include": "#number" }
-  ],
-  "repository": {
-    "block-comments": {
-      "comment": "block comments",
-      "name": "comment.block.hybroid",
-      "begin": "(/\\*)",
-      "end": "(\\*/)"
-    },
-    "function-call": {
-      "name": "meta.function-call.hybroid",
-      "comment": "Regular function call of the type \"name(args)\"",
-      "begin": "(?x)\n  \\b(?=\n    ([[:alpha:]_]\\w*) \\s* (\\()\n  )\n",
-      "end": "(\\))",
-      "endCaptures": {
-        "1": {
-          "name": "punctuation.definition.arguments.end.hybroid"
-        }
-      },
-      "patterns": [
-        {
-          "include": "#function-name"
-        },
-        {
-          "include": "#function-arguments"
-        }
-      ]
-    },
-    "function-name": {
-      "patterns": [
-        {
-          "comment": "Some color schemas support meta.function-call.generic scope",
-          "name": "meta.function-call.generic.hybroid",
-          "match": "(?x)\n  \\b ([[:alpha:]_]\\w*) \\b\n"
-        }
-      ]
-    },
-    "function-arguments": {
-      "begin": "(\\()",
-      "end": "(?=\\))(?!\\)\\s*\\()",
-      "beginCaptures": {
-        "1": {
-          "name": "punctuation.definition.arguments.begin.hybroid"
-        }
-      },
-      "contentName": "meta.function-call.arguments.hybroid",
-      "patterns": [
-        {
-          "name": "punctuation.separator.arguments.hybroid",
-          "match": "(,)"
-        },
-        {
-          "match": "(?x)\n  (?:(?<=[,(])|^) \\s* (\\*{1,2})\n",
-          "captures": {
-            "1": {
-              "name": "keyword.operator.unpacking.arguments.hybroid"
-            }
-          }
-        },
-        {
-          "match": "\\b([[:alpha:]_]\\w*)\\s*(=)(?!=)",
-          "captures": {
-            "1": {
-              "name": "variable.parameter.function-call.hytbroid"
-            },
-            "2": {
-              "name": "keyword.operator.assignment.hybroid"
-            }
-          }
-        },
-        {
-          "name": "keyword.operator.assignment.hybroid",
-          "match": "=(?!=)"
-        },
-        {
-          "match": "\\s*(\\))\\s*(\\()",
-          "captures": {
-            "1": {
-              "name": "punctuation.definition.arguments.end.hybroid"
-            },
-            "2": {
-              "name": "punctuation.definition.arguments.begin.hybroid"
-            }
-          }
-        }
-      ]
-    },
-    "keywords": {
-      "patterns": [
-        {
-          "name": "keyword.control.hybroid",
-          "match": "(by|add|fn|tick|repeat|for|while|if|else|env|return|break|continue|let|new|pub|const|in|as|to|with|enum|use|spawn|struct|entity|find|remove|match|yield|from)"
-        },
-        {
-          "name": "storage.type.hybroid",
-          "match": "(number|fixed|bool|text)"
-        },
-        {
-          "name": "variable.language.hybroid",
-          "match": "(self)"
-        },
-        {
-          "comment": "logical operators",
-          "name": "keyword.operator.logical.hybroid",
-          "match": "(or|and|not)(?!=)"
-        },
-        {
-          "comment": "assignment operators",
-          "name": "keyword.operator.assignment.hybroid",
-          "match": "(\\+=|-=|\\*=|/=|%=|\\^=|\\|=)"
-        },
-        {
-          "comment": "single equal",
-          "name": "keyword.operator.assignment.equal.hybroid",
-          "match": "(?<![<>])=(?!=|>)"
-        },
-        {
-          "comment": "comparison operators",
-          "name": "keyword.operator.comparison.hybroid",
-          "match": "(=(=)?(?!>)|!=|<=|(?<!=)>=)"
-        },
-        {
-          "comment": "math operators",
-          "name": "keyword.operator.math.hybroid",
-          "match": "(?<!\/)(?<!\/\/)(?<!\/\\*)(\\+=|\\-=|\\*=|\\\/=|\\^=|%=|(?<!\\\/\\*)\/|(?<!\\\/)\\\/|\\+|\\-|\\*|\\^|%)(?!\/)(?!\/\/)"
-        }
-      ]
-    },
-    "single_strings": {
-      "name": "string.quoted.single.hybroid",
-      "begin": "'",
-      "end": "'",
-      "patterns": [
-        {
-          "name": "constant.character.escape.hybroid",
-          "match": "\\\\."
-        }
-      ]
-    },
-    "double_strings": {
-      "name": "string.quoted.double.hybroid",
-      "begin": "\"",
-      "end": "\"",
-      "patterns": [
-        {
-          "name": "constant.character.escape.hybroid",
-          "match": "\\\\."
-        }
-      ]
-    },
-    "number": {
-      "name": "constant.numeric.hybroid",
-      "patterns": [
-        {
-          "include": "#number-float"
-        },
-        {
-          "include": "#number-dec"
-        },
-        {
-          "include": "#number-hex"
-        },
-        {
-          "include": "#number-oct"
-        },
-        {
-          "include": "#number-bin"
-        },
-        {
-          "include": "#number-long"
-        }
-      ]
-    },
-    "number-float": {
-      "name": "constant.numeric.float.hybroid",
-      "match": "(?x)\n  (?<! \\w)(?:\n    (?:\n      \\.[0-9](?: _?[0-9] )*\n      |\n      [0-9](?: _?[0-9] )* \\. [0-9](?: _?[0-9] )*\n      |\n      [0-9](?: _?[0-9] )* \\.\n    ) (?: [eE][+-]?[0-9](?: _?[0-9] )* )?\n    |\n    [0-9](?: _?[0-9] )* (?: [eE][+-]?[0-9](?: _?[0-9] )* )\n  )([jJ])?\\b\n",
-      "captures": {
-        "1": {
-          "name": "storage.type.imaginary.number.hybroid"
-        }
-      }
-    },
-    "number-dec": {
-      "name": "constant.numeric.dec.hybroid",
-      "match": "(?x)\n  (?<![\\w\\.])(?:\n      [1-9](?: _?[0-9] )*\n      |\n      0+\n      |\n      [0-9](?: _?[0-9] )* ([jJ])\n      |\n      0 ([0-9]+)(?![eE\\.])\n  )\\b\n",
-      "captures": {
-        "1": {
-          "name": "storage.type.imaginary.number.hybroid"
-        },
-        "2": {
-          "name": "invalid.illegal.dec.hybroid"
-        }
-      }
-    },
-    "number-hex": {
-      "name": "constant.numeric.hex.hybroid",
-      "match": "(?x)\n  (?<![\\w\\.])\n    (0[xX]) (_?[0-9a-fA-F])+\n  \\b\n",
-      "captures": {
-        "1": {
-          "name": "storage.type.number.hybroid"
-        }
-      }
-    },
-    "number-oct": {
-      "name": "constant.numeric.oct.hybroid",
-      "match": "(?x)\n  (?<![\\w\\.])\n    (0[oO]) (_?[0-7])+\n  \\b\n",
-      "captures": {
-        "1": {
-          "name": "storage.type.number.hybroid"
-        }
-      }
-    },
-    "number-bin": {
-      "name": "constant.numeric.bin.hybroid",
-      "match": "(?x)\n  (?<![\\w\\.])\n    (0[bB]) (_?[01])+\n  \\b\n",
-      "captures": {
-        "1": {
-          "name": "storage.type.number.hybroid"
-        }
-      }
-    },
-    "number-long": {
-      "name": "constant.numeric.bin.hybroid",
-      "match": "(?x)\n  (?<![\\w\\.])\n    ([1-9][0-9]* | 0) ([lL])\n  \\b\n",
-      "captures": {
-        "2": {
-          "name": "storage.type.number.hybroid"
-        }
-      }
-    },
-    "single_comments": {
-      "name": "comment.line.double-slash.hybroid",
-      "begin": "//",
-      "end": "\n"
-    },
-    "constants": {
-      "name": "constant.language.hybroid",
-      "match": "\\b(true|false)\\b"
-    }
-  }
+  "comment": "Hybroid TextMate syntax, based on Rust syntax in https://github.com/microsoft/vscode/blob/main/extensions/rust/syntaxes/rust.tmLanguage.json",
+  	"patterns": [
+		{
+			"comment": "boxed slice literal",
+			"begin": "(<)(\\[)",
+			"beginCaptures": {
+				"1": {
+					"name": "punctuation.brackets.angle.hybroid"
+				},
+				"2": {
+					"name": "punctuation.brackets.square.hybroid"
+				}
+			},
+			"end": ">",
+			"endCaptures": {
+				"0": {
+					"name": "punctuation.brackets.angle.hybroid"
+				}
+			},
+			"patterns": [
+				{
+					"include": "#block-comments"
+				},
+				{
+					"include": "#comments"
+				},
+				{
+					"include": "#lvariables"
+				},
+				{
+					"include": "#punctuation"
+				},
+				{
+					"include": "#types"
+				}
+			]
+		},
+		{
+			"comment": "macro type metavariables",
+			"name": "meta.macro.metavariable.type.hybroid",
+			"match": "(\\$)(([A-Z]\\w*))(\\s*(:)\\s*(block|expr(?:_2021)?|ident|item|lifetime|literal|meta|pat(?:_param)?|path|stmt|tt|ty|vis)\\b)?",
+			"captures": {
+				"1": {
+					"name": "keyword.operator.macro.dollar.hybroid"
+				},
+				"2": {
+					"name": "entity.name.type.metavariable.hybroid"
+				},
+				"6": {
+					"name": "keyword.operator.key-value.hybroid"
+				},
+				"7": {
+					"name": "variable.other.metavariable.specifier.hybroid"
+				}
+			},
+			"patterns": [
+				{
+					"include": "#keywords"
+				}
+			]
+		},
+		{
+			"comment": "macro metavariables",
+			"name": "meta.macro.metavariable.hybroid",
+			"match": "(\\$)([a-z]\\w*)(\\s*(:)\\s*(block|expr(?:_2021)?|ident|item|lifetime|literal|meta|pat(?:_param)?|path|stmt|tt|ty|vis)\\b)?",
+			"captures": {
+				"1": {
+					"name": "keyword.operator.macro.dollar.hybroid"
+				},
+				"2": {
+					"name": "variable.other.metavariable.name.hybroid"
+				},
+				"4": {
+					"name": "keyword.operator.key-value.hybroid"
+				},
+				"5": {
+					"name": "variable.other.metavariable.specifier.hybroid"
+				}
+			},
+			"patterns": [
+				{
+					"include": "#keywords"
+				}
+			]
+		},
+		{
+			"comment": "macro rules",
+			"name": "meta.macro.rules.hybroid",
+			"match": "\\b(macro_rules!)\\s+(([a-z0-9_]+)|([A-Z][a-z0-9_]*))\\s+(\\{)",
+			"captures": {
+				"1": {
+					"name": "entity.name.function.macro.rules.hybroid"
+				},
+				"3": {
+					"name": "entity.name.function.macro.hybroid"
+				},
+				"4": {
+					"name": "entity.name.type.macro.hybroid"
+				},
+				"5": {
+					"name": "punctuation.brackets.curly.hybroid"
+				}
+			}
+		},
+		{
+			"comment": "modules",
+			"match": "(mod)\\s+((?:r#(?![Ss]elf|super))?[a-z][A-Za-z0-9_]*)",
+			"captures": {
+				"1": {
+					"name": "storage.type.hybroid"
+				},
+				"2": {
+					"name": "entity.name.module.hybroid"
+				}
+			}
+		},
+		{
+			"comment": "use statements",
+			"name": "meta.use.hybroid",
+			"begin": "\\b(use)\\s",
+			"beginCaptures": {
+				"1": {
+					"name": "keyword.other.hybroid"
+				}
+			},
+			"end": ";",
+			"endCaptures": {
+				"0": {
+					"name": "punctuation.semi.hybroid"
+				}
+			},
+			"patterns": [
+				{
+					"include": "#block-comments"
+				},
+				{
+					"include": "#comments"
+				},
+				{
+					"include": "#keywords"
+				},
+				{
+					"include": "#namespaces"
+				},
+				{
+					"include": "#punctuation"
+				},
+				{
+					"include": "#types"
+				},
+				{
+					"include": "#lvariables"
+				}
+			]
+		},
+		{
+			"include": "#block-comments"
+		},
+		{
+			"include": "#comments"
+		},
+		{
+			"include": "#attributes"
+		},
+		{
+			"include": "#lvariables"
+		},
+		{
+			"include": "#constants"
+		},
+		{
+			"include": "#functions"
+		},
+		{
+			"include": "#types"
+		},
+		{
+			"include": "#keywords"
+		},
+		{
+			"include": "#macros"
+		},
+		{
+			"include": "#namespaces"
+		},
+		{
+			"include": "#punctuation"
+		},
+		{
+			"include": "#strings"
+		},
+		{
+			"include": "#variables"
+		}
+	],
+	"repository": {
+		"comments": {
+			"patterns": [
+				{
+					"comment": "documentation comments",
+					"name": "comment.line.documentation.hybroid",
+					"match": "(///).*$",
+					"captures": {
+						"1": {
+							"name": "punctuation.definition.comment.hybroid"
+						}
+					}
+				},
+				{
+					"comment": "line comments",
+					"name": "comment.line.double-slash.hybroid",
+					"match": "(//).*$",
+					"captures": {
+						"1": {
+							"name": "punctuation.definition.comment.hybroid"
+						}
+					}
+				}
+			]
+		},
+		"block-comments": {
+			"patterns": [
+				{
+					"comment": "empty block comments",
+					"name": "comment.block.hybroid",
+					"match": "/\\*\\*/"
+				},
+				{
+					"comment": "block documentation comments",
+					"name": "comment.block.documentation.hybroid",
+					"begin": "/\\*\\*",
+					"end": "\\*/",
+					"patterns": [
+						{
+							"include": "#block-comments"
+						}
+					]
+				},
+				{
+					"comment": "block comments",
+					"name": "comment.block.hybroid",
+					"begin": "/\\*(?!\\*)",
+					"end": "\\*/",
+					"patterns": [
+						{
+							"include": "#block-comments"
+						}
+					]
+				}
+			]
+		},
+		"constants": {
+			"patterns": [
+				{
+					"comment": "ALL CAPS constants",
+					"name": "constant.other.caps.hybroid",
+					"match": "\\b[A-Z]{2}[A-Z0-9_]*\\b"
+				},
+				{
+					"comment": "constant declarations",
+					"match": "\\b(const)\\s+([A-Z][A-Za-z0-9_]*)\\b",
+					"captures": {
+						"1": {
+							"name": "storage.type.hybroid"
+						},
+						"2": {
+							"name": "constant.other.caps.hybroid"
+						}
+					}
+				},
+				{
+					"comment": "decimal integers and floats",
+					"name": "constant.numeric.decimal.hybroid",
+					"match": "\\b\\d[\\d_]*(\\.?)[\\d_]*(?:(E|e)([+-]?)([\\d_]+))?(number)?\\b",
+					"captures": {
+						"1": {
+							"name": "punctuation.separator.dot.decimal.hybroid"
+						},
+						"2": {
+							"name": "keyword.operator.exponent.hybroid"
+						},
+						"3": {
+							"name": "keyword.operator.exponent.sign.hybroid"
+						},
+						"4": {
+							"name": "constant.numeric.decimal.exponent.mantissa.hybroid"
+						},
+						"5": {
+							"name": "entity.name.type.numeric.hybroid"
+						}
+					}
+				},
+				{
+					"comment": "hexadecimal integers",
+					"name": "constant.numeric.hex.hybroid",
+					"match": "\\b0x[\\da-fA-F_]+(number)?\\b",
+					"captures": {
+						"1": {
+							"name": "entity.name.type.numeric.hybroid"
+						}
+					}
+				},
+				{
+					"comment": "octal integers",
+					"name": "constant.numeric.oct.hybroid",
+					"match": "\\b0o[0-7_]+(number)?\\b",
+					"captures": {
+						"1": {
+							"name": "entity.name.type.numeric.hybroid"
+						}
+					}
+				},
+				{
+					"comment": "binary integers",
+					"name": "constant.numeric.bin.hybroid",
+					"match": "\\b0b[01_]+(number)?\\b",
+					"captures": {
+						"1": {
+							"name": "entity.name.type.numeric.hybroid"
+						}
+					}
+				},
+				{
+					"comment": "booleans",
+					"name": "constant.language.bool.hybroid",
+					"match": "\\b(true|false)\\b"
+				}
+			]
+		},
+		"escapes": {
+			"comment": "escapes: ASCII, byte, Unicode, quote, regex",
+			"name": "constant.character.escape.hybroid",
+			"match": "(\\\\)(?:(?:(x[0-7][\\da-fA-F])|(u(\\{)[\\da-fA-F]{4,6}(\\}))|.))",
+			"captures": {
+				"1": {
+					"name": "constant.character.escape.backslash.hybroid"
+				},
+				"2": {
+					"name": "constant.character.escape.bit.hybroid"
+				},
+				"3": {
+					"name": "constant.character.escape.unicode.hybroid"
+				},
+				"4": {
+					"name": "constant.character.escape.unicode.punctuation.hybroid"
+				},
+				"5": {
+					"name": "constant.character.escape.unicode.punctuation.hybroid"
+				}
+			}
+		},
+		"attributes": {
+			"comment": "attributes",
+			"name": "meta.attribute.hybroid",
+			"begin": "(#)(\\!?)(\\[)",
+			"beginCaptures": {
+				"1": {
+					"name": "punctuation.definition.attribute.hybroid"
+				},
+				"3": {
+					"name": "punctuation.brackets.attribute.hybroid"
+				}
+			},
+			"end": "\\]",
+			"endCaptures": {
+				"0": {
+					"name": "punctuation.brackets.attribute.hybroid"
+				}
+			},
+			"patterns": [
+				{
+					"include": "#block-comments"
+				},
+				{
+					"include": "#comments"
+				},
+				{
+					"include": "#keywords"
+				},
+				{
+					"include": "#punctuation"
+				},
+				{
+					"include": "#strings"
+				},
+				{
+					"include": "#types"
+				}
+			]
+		},
+		"functions": {
+			"patterns": [
+				{
+					"comment": "pub as a function",
+					"match": "\\b(pub)(\\()",
+					"captures": {
+						"1": {
+							"name": "keyword.other.hybroid"
+						},
+						"2": {
+							"name": "punctuation.brackets.round.hybroid"
+						}
+					}
+				},
+				{
+					"comment": "function definition",
+					"name": "meta.function.definition.hybroid",
+					"begin": "\\b(fn)\\s+((?:r#(?![Ss]elf|super))?[A-Za-z0-9_]+)((\\()|(<))",
+					"beginCaptures": {
+						"1": {
+							"name": "keyword.other.fn.hybroid"
+						},
+						"2": {
+							"name": "entity.name.function.hybroid"
+						},
+						"4": {
+							"name": "punctuation.brackets.round.hybroid"
+						},
+						"5": {
+							"name": "punctuation.brackets.angle.hybroid"
+						}
+					},
+					"end": "(\\{)|(;)",
+					"endCaptures": {
+						"1": {
+							"name": "punctuation.brackets.curly.hybroid"
+						},
+						"2": {
+							"name": "punctuation.semi.hybroid"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#block-comments"
+						},
+						{
+							"include": "#comments"
+						},
+						{
+							"include": "#keywords"
+						},
+						{
+							"include": "#lvariables"
+						},
+						{
+							"include": "#constants"
+						},
+						{
+							"include": "#functions"
+						},
+						{
+							"include": "#macros"
+						},
+						{
+							"include": "#namespaces"
+						},
+						{
+							"include": "#punctuation"
+						},
+						{
+							"include": "#strings"
+						},
+						{
+							"include": "#types"
+						},
+						{
+							"include": "#variables"
+						}
+					]
+				},
+				{
+					"comment": "function/method calls, chaining",
+					"name": "meta.function.call.hybroid",
+					"begin": "((?:r#(?![Ss]elf|super))?[A-Za-z0-9_]+)(\\()",
+					"beginCaptures": {
+						"1": {
+							"name": "entity.name.function.hybroid"
+						},
+						"2": {
+							"name": "punctuation.brackets.round.hybroid"
+						}
+					},
+					"end": "\\)",
+					"endCaptures": {
+						"0": {
+							"name": "punctuation.brackets.round.hybroid"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#block-comments"
+						},
+						{
+							"include": "#comments"
+						},
+						{
+							"include": "#attributes"
+						},
+						{
+							"include": "#keywords"
+						},
+						{
+							"include": "#lvariables"
+						},
+						{
+							"include": "#constants"
+						},
+						{
+							"include": "#functions"
+						},
+						{
+							"include": "#macros"
+						},
+						{
+							"include": "#namespaces"
+						},
+						{
+							"include": "#punctuation"
+						},
+						{
+							"include": "#strings"
+						},
+						{
+							"include": "#types"
+						},
+						{
+							"include": "#variables"
+						}
+					]
+				},
+				{
+					"comment": "function/method calls with turbofish",
+					"name": "meta.function.call.hybroid",
+					"begin": "((?:r#(?![Ss]elf|super))?[A-Za-z0-9_]+)(?=::<.*>\\()",
+					"beginCaptures": {
+						"1": {
+							"name": "entity.name.function.hybroid"
+						}
+					},
+					"end": "\\)",
+					"endCaptures": {
+						"0": {
+							"name": "punctuation.brackets.round.hybroid"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#block-comments"
+						},
+						{
+							"include": "#comments"
+						},
+						{
+							"include": "#attributes"
+						},
+						{
+							"include": "#keywords"
+						},
+						{
+							"include": "#lvariables"
+						},
+						{
+							"include": "#constants"
+						},
+						{
+							"include": "#functions"
+						},
+						{
+							"include": "#macros"
+						},
+						{
+							"include": "#namespaces"
+						},
+						{
+							"include": "#punctuation"
+						},
+						{
+							"include": "#strings"
+						},
+						{
+							"include": "#types"
+						},
+						{
+							"include": "#variables"
+						}
+					]
+				}
+			]
+		},
+		"keywords": {
+			"patterns": [
+				{
+					"comment": "control flow keywords",
+					"name": "keyword.control.hybroid",
+					"match": "\\b(await|break|continue|do|else|for|if|repeat|tick|match|return|try|while|yield)\\b"
+				},
+				{
+					"comment": "storage keywords",
+					"name": "keyword.other.hybroid storage.type.hybroid",
+					"match": "\\b(let)\\b"
+				},
+				{
+					"comment": "const keyword",
+					"name": "storage.modifier.hybroid",
+					"match": "\\b(const)\\b"
+				},
+				{
+					"comment": "type keyword",
+					"name": "keyword.declaration.type.hybroid storage.type.hybroid",
+					"match": "\\b(type)\\b"
+				},
+				{
+					"comment": "enum keyword",
+					"name": "keyword.declaration.enum.hybroid storage.type.hybroid",
+					"match": "\\b(enum)\\b"
+				},
+				{
+					"comment": "struct keyword",
+					"name": "keyword.declaration.struct.hybroid storage.type.hybroid",
+					"match": "\\b(struct)\\b"
+				},
+				{
+					"comment": "class keyword",
+					"name": "keyword.declaration.class.hybroid storage.type.hybroid",
+					"match": "\\b(class)\\b"
+				},
+				{
+					"comment": "entity keyword",
+					"name": "keyword.declaration.entity.hybroid storage.type.hybroid",
+					"match": "\\b(entity)\\b"
+				},
+				{
+					"comment": "other keywords",
+					"name": "keyword.other.hybroid",
+					"match": "\\b(is|isnt|and|as|by|env|in|from|to|new|pub|spawn|use|with|destroy)\\b"
+				},
+				{
+					"comment": "fn",
+					"name": "keyword.other.fn.hybroid",
+					"match": "\\bfn\\b"
+				},
+				{
+					"comment": "logical operators",
+					"name": "keyword.operator.logical.hybroid",
+					"match": "(\\^|\\||\\|\\||&&|<<|>>|!)(?!=)"
+				},
+				{
+					"comment": "logical AND, borrow references",
+					"name": "keyword.operator.borrow.and.hybroid",
+					"match": "&(?![&=])"
+				},
+				{
+					"comment": "assignment operators",
+					"name": "keyword.operator.assignment.hybroid",
+					"match": "(\\+=|-=|\\*=|/=|%=|\\^=|&=|\\|=|<<=|>>=)"
+				},
+				{
+					"comment": "single equal",
+					"name": "keyword.operator.assignment.equal.hybroid",
+					"match": "(?<![<>])=(?!=|>)"
+				},
+				{
+					"comment": "comparison operators",
+					"name": "keyword.operator.comparison.hybroid",
+					"match": "(=(=)?(?!>)|!=|<=|(?<!=)>=)"
+				},
+				{
+					"comment": "math operators",
+					"name": "keyword.operator.math.hybroid",
+					"match": "(([+%]|(\\*(?!\\w)))(?!=))|(-(?!>))|(/(?!/))"
+				},
+				{
+					"comment": "less than, greater than (special case)",
+					"match": "(?:\\b|(?:(\\))|(\\])|(\\})))[ \\t]+([<>])[ \\t]+(?:\\b|(?:(\\()|(\\[)|(\\{)))",
+					"captures": {
+						"1": {
+							"name": "punctuation.brackets.round.hybroid"
+						},
+						"2": {
+							"name": "punctuation.brackets.square.hybroid"
+						},
+						"3": {
+							"name": "punctuation.brackets.curly.hybroid"
+						},
+						"4": {
+							"name": "keyword.operator.comparison.hybroid"
+						},
+						"5": {
+							"name": "punctuation.brackets.round.hybroid"
+						},
+						"6": {
+							"name": "punctuation.brackets.square.hybroid"
+						},
+						"7": {
+							"name": "punctuation.brackets.curly.hybroid"
+						}
+					}
+				},
+				{
+					"comment": "environment operator",
+					"name": "keyword.operator.environment.hybroid",
+					"match": ":"
+				},
+				{
+					"comment": "dot access",
+					"name": "keyword.operator.access.dot.hybroid",
+					"match": "\\.(?!\\.)"
+				},
+				{
+					"comment": "ranges, range patterns",
+					"name": "keyword.operator.range.hybroid",
+					"match": "\\.{2}(=|\\.)?"
+				},
+				{
+					"comment": "colon",
+					"name": "keyword.operator.key-value.hybroid",
+					"match": ":(?!:)"
+				},
+				{
+					"comment": "dashrocket, skinny arrow",
+					"name": "keyword.operator.arrow.skinny.hybroid",
+					"match": "->|<-"
+				},
+				{
+					"comment": "hashrocket, fat arrow",
+					"name": "keyword.operator.arrow.fat.hybroid",
+					"match": "=>"
+				},
+				{
+					"comment": "question mark operator, questionably sized, macro kleene matcher",
+					"name": "keyword.operator.question.hybroid",
+					"match": "\\?"
+				}
+			]
+		},
+		"interpolations": {
+			"comment": "curly brace interpolations",
+			"name": "meta.interpolation.hybroid",
+			"match": "({)[^\"{}]*(})",
+			"captures": {
+				"1": {
+					"name": "punctuation.definition.interpolation.hybroid"
+				},
+				"2": {
+					"name": "punctuation.definition.interpolation.hybroid"
+				}
+			}
+		},
+		"macros": {
+			"patterns": [
+				{
+					"comment": "macros",
+					"name": "meta.macro.hybroid",
+					"match": "(([a-z_][A-Za-z0-9_]*!)|([A-Z_][A-Za-z0-9_]*!))",
+					"captures": {
+						"2": {
+							"name": "entity.name.function.macro.hybroid"
+						},
+						"3": {
+							"name": "entity.name.type.macro.hybroid"
+						}
+					}
+				}
+			]
+		},
+		"namespaces": {
+			"patterns": [
+				{
+					"comment": "namespace (non-type, non-function path segment)",
+					"match": "(?<![A-Za-z0-9_])([A-Za-z0-9_]+)((?<!super|self)::)",
+					"captures": {
+						"1": {
+							"name": "entity.name.namespace.hybroid"
+						},
+						"2": {
+							"name": "keyword.operator.namespace.hybroid"
+						}
+					}
+				}
+			]
+		},
+		"types": {
+			"patterns": [
+				{
+					"comment": "numeric types",
+					"match": "(?<![A-Za-z])(number|fixed)\\b",
+					"captures": {
+						"1": {
+							"name": "entity.name.type.numeric.hybroid"
+						}
+					}
+				},
+				{
+					"comment": "parameterized types",
+					"begin": "\\b(_?[A-Z][A-Za-z0-9_]*)(<)",
+					"beginCaptures": {
+						"1": {
+							"name": "entity.name.type.hybroid"
+						},
+						"2": {
+							"name": "punctuation.brackets.angle.hybroid"
+						}
+					},
+					"end": ">",
+					"endCaptures": {
+						"0": {
+							"name": "punctuation.brackets.angle.hybroid"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#block-comments"
+						},
+						{
+							"include": "#comments"
+						},
+						{
+							"include": "#keywords"
+						},
+						{
+							"include": "#lvariables"
+						},
+						{
+							"include": "#punctuation"
+						},
+						{
+							"include": "#types"
+						},
+						{
+							"include": "#variables"
+						}
+					]
+				},
+				{
+					"comment": "primitive types",
+					"name": "entity.name.type.primitive.hybroid",
+					"match": "\\b(bool|string|list|map)\\b"
+				},
+				{
+					"comment": "struct declarations",
+					"match": "\\b(struct)\\s+(_?[A-Z][A-Za-z0-9_]*)\\b",
+					"captures": {
+						"1": {
+							"name": "keyword.declaration.struct.hybroid storage.type.hybroid"
+						},
+						"2": {
+							"name": "entity.name.type.struct.hybroid"
+						}
+					}
+				},
+				{
+					"comment": "enum declarations",
+					"match": "\\b(enum)\\s+(_?[A-Z][A-Za-z0-9_]*)\\b",
+					"captures": {
+						"1": {
+							"name": "keyword.declaration.enum.hybroid storage.type.hybroid"
+						},
+						"2": {
+							"name": "entity.name.type.enum.hybroid"
+						}
+					}
+				},
+				{
+					"comment": "type declarations",
+					"match": "\\b(type)\\s+(_?[A-Z][A-Za-z0-9_]*)\\b",
+					"captures": {
+						"1": {
+							"name": "keyword.declaration.type.hybroid storage.type.hybroid"
+						},
+						"2": {
+							"name": "entity.name.type.declaration.hybroid"
+						}
+					}
+				}
+			]
+		},
+		"punctuation": {
+			"patterns": [
+				{
+					"comment": "comma",
+					"name": "punctuation.comma.hybroid",
+					"match": ","
+				},
+				{
+					"comment": "curly braces",
+					"name": "punctuation.brackets.curly.hybroid",
+					"match": "[{}]"
+				},
+				{
+					"comment": "parentheses, round brackets",
+					"name": "punctuation.brackets.round.hybroid",
+					"match": "[()]"
+				},
+				{
+					"comment": "semicolon",
+					"name": "punctuation.semi.hybroid",
+					"match": ";"
+				},
+				{
+					"comment": "square brackets",
+					"name": "punctuation.brackets.square.hybroid",
+					"match": "[\\[\\]]"
+				},
+				{
+					"comment": "angle brackets",
+					"name": "punctuation.brackets.angle.hybroid",
+					"match": "(?<!=)[<>]"
+				}
+			]
+		},
+		"strings": {
+			"patterns": [
+				{
+					"comment": "double-quoted strings and byte strings",
+					"name": "string.quoted.double.hybroid",
+					"begin": "(b?)(\")",
+					"beginCaptures": {
+						"1": {
+							"name": "string.quoted.byte.raw.hybroid"
+						},
+						"2": {
+							"name": "punctuation.definition.string.hybroid"
+						}
+					},
+					"end": "\"",
+					"endCaptures": {
+						"0": {
+							"name": "punctuation.definition.string.hybroid"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#escapes"
+						},
+						{
+							"include": "#interpolations"
+						}
+					]
+				},
+				{
+					"comment": "double-quoted raw strings and raw byte strings",
+					"name": "string.quoted.double.hybroid",
+					"begin": "(b?r)(#*)(\")",
+					"beginCaptures": {
+						"1": {
+							"name": "string.quoted.byte.raw.hybroid"
+						},
+						"2": {
+							"name": "punctuation.definition.string.raw.hybroid"
+						},
+						"3": {
+							"name": "punctuation.definition.string.hybroid"
+						}
+					},
+					"end": "(\")(\\2)",
+					"endCaptures": {
+						"1": {
+							"name": "punctuation.definition.string.hybroid"
+						},
+						"2": {
+							"name": "punctuation.definition.string.raw.hybroid"
+						}
+					}
+				},
+				{
+					"comment": "characters and bytes",
+					"name": "string.quoted.single.char.hybroid",
+					"begin": "(b)?(')",
+					"beginCaptures": {
+						"1": {
+							"name": "string.quoted.byte.raw.hybroid"
+						},
+						"2": {
+							"name": "punctuation.definition.char.hybroid"
+						}
+					},
+					"end": "'",
+					"endCaptures": {
+						"0": {
+							"name": "punctuation.definition.char.hybroid"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#escapes"
+						}
+					]
+				}
+			]
+		},
+		"lvariables": {
+			"patterns": [
+				{
+					"comment": "self",
+					"name": "variable.language.self.hybroid",
+					"match": "\\b[Ss]elf\\b"
+				},
+				{
+					"comment": "super",
+					"name": "variable.language.super.hybroid",
+					"match": "\\bsuper\\b"
+				}
+			]
+		},
+		"variables": {
+			"patterns": [
+				{
+					"comment": "variables",
+					"name": "variable.other.hybroid",
+					"match": "\\b(?<!(?<!\\.)\\.)(?:r#(?!([Ss]elf|super)))?[a-z0-9_]+\\b"
+				}
+			]
+		}
+	}
 }
