@@ -127,12 +127,7 @@
 					"name": "keyword.other.hybroid"
 				}
 			},
-			"end": ";",
-			"endCaptures": {
-				"0": {
-					"name": "punctuation.semi.hybroid"
-				}
-			},
+			"end": "\n",
 			"patterns": [
 				{
 					"include": "#block-comments"
@@ -275,7 +270,7 @@
 				{
 					"comment": "decimal integers and floats",
 					"name": "constant.numeric.decimal.hybroid",
-					"match": "\\b\\d[\\d_]*(\\.?)[\\d_]*(?:(E|e)([+-]?)([\\d_]+))?(number)?\\b",
+					"match": "\\b\\d[\\d_]*(\\.?)[\\d_]*(?:(E|e)([+-]?)([\\d_]+))?(f|fx|d|r)?\\b",
 					"captures": {
 						"1": {
 							"name": "punctuation.separator.dot.decimal.hybroid"
@@ -409,7 +404,7 @@
 				{
 					"comment": "function definition",
 					"name": "meta.function.definition.hybroid",
-					"begin": "\\b(fn)\\s+((?:r#(?![Ss]elf|super))?[A-Za-z0-9_]+)((\\()|(<))",
+					"begin": "\\b(fn)\\s+((?:r#(?![Ss]elf|super|spawn|destroy|new))?[A-Za-z0-9_]+)((\\()|(<))",
 					"beginCaptures": {
 						"1": {
 							"name": "keyword.other.fn.hybroid"
@@ -475,7 +470,7 @@
 				{
 					"comment": "function/method calls, chaining",
 					"name": "meta.function.call.hybroid",
-					"begin": "((?:r#(?![Ss]elf|super))?[A-Za-z0-9_]+)(\\()",
+					"begin": "((?:r#(?![Ss]elf|super|spawn|destroy|new))?[A-Za-z0-9_]+)(\\()",
 					"beginCaptures": {
 						"1": {
 							"name": "entity.name.function.hybroid"
@@ -535,7 +530,7 @@
 				{
 					"comment": "function/method calls with turbofish",
 					"name": "meta.function.call.hybroid",
-					"begin": "((?:r#(?![Ss]elf|super))?[A-Za-z0-9_]+)(?=::<.*>\\()",
+					"begin": "((?:r#(?![Ss]elf|super|spawn|destroy|new))?[A-Za-z0-9_]+)(?=:<.*>\\()",
 					"beginCaptures": {
 						"1": {
 							"name": "entity.name.function.hybroid"
@@ -771,7 +766,7 @@
 			"patterns": [
 				{
 					"comment": "namespace (non-type, non-function path segment)",
-					"match": "(?<![A-Za-z0-9_])([A-Za-z0-9_]+)((?<!super|self)::)",
+					"match": "(?<![A-Za-z0-9_])([A-Za-z0-9_]+)((?<!super|self|spawn|destroy|new):)",
 					"captures": {
 						"1": {
 							"name": "entity.name.namespace.hybroid"
