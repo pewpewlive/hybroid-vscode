@@ -40,18 +40,6 @@
 			]
 		},
 		{
-			"comment": "modules",
-			"match": "(mod)\\s+((?:r#(?![Ss]elf|super))?[a-z][A-Za-z0-9_]*)",
-			"captures": {
-				"1": {
-					"name": "storage.type.hybroid"
-				},
-				"2": {
-					"name": "entity.name.module.hybroid"
-				}
-			}
-		},
-		{
 			"comment": "use statements",
 			"name": "meta.use.hybroid",
 			"begin": "\\b(use)\\s",
@@ -181,11 +169,6 @@
 		"constants": {
 			"patterns": [
 				{
-					"comment": "ALL CAPS constants",
-					"name": "constant.other.caps.hybroid",
-					"match": "\\b[A-Z]{2}[A-Z0-9_]*\\b"
-				},
-				{
 					"comment": "constant declarations",
 					"match": "\\b(const)\\s+([A-Z][A-Za-z0-9_]*)\\b",
 					"captures": {
@@ -215,39 +198,24 @@
 							"name": "constant.numeric.decimal.exponent.mantissa.hybroid"
 						},
 						"5": {
-							"name": "entity.name.type.numeric.hybroid"
+							"name": "keyword.other.unit.suffix.hybroid"
 						}
 					}
 				},
 				{
 					"comment": "hexadecimal integers",
 					"name": "constant.numeric.hex.hybroid",
-					"match": "\\b0x[\\da-fA-F_]+(number)?\\b",
-					"captures": {
-						"1": {
-							"name": "entity.name.type.numeric.hybroid"
-						}
-					}
+					"match": "\\b0x[\\da-fA-F_]+\\b"
 				},
 				{
 					"comment": "octal integers",
 					"name": "constant.numeric.oct.hybroid",
-					"match": "\\b0o[0-7_]+(number)?\\b",
-					"captures": {
-						"1": {
-							"name": "entity.name.type.numeric.hybroid"
-						}
-					}
+					"match": "\\b0o[0-7_]+\\b"
 				},
 				{
 					"comment": "binary integers",
 					"name": "constant.numeric.bin.hybroid",
-					"match": "\\b0b[01_]+(number)?\\b",
-					"captures": {
-						"1": {
-							"name": "entity.name.type.numeric.hybroid"
-						}
-					}
+					"match": "\\b0b[01_]+\\b"
 				},
 				{
 					"comment": "booleans",
@@ -334,7 +302,7 @@
 				{
 					"comment": "function definition",
 					"name": "meta.function.definition.hybroid",
-					"begin": "\\b(fn)\\s+((?:r#(?![Ss]elf|super|spawn|destroy|new))?[A-Za-z0-9_]+)((\\()|(<))",
+					"begin": "\\b(fn)\\s+((?:r#(?!self|spawn|destroy|new))?[A-Za-z0-9_]+)((\\()|(<))",
 					"beginCaptures": {
 						"1": {
 							"name": "keyword.other.fn.hybroid"
@@ -397,7 +365,7 @@
 				{
 					"comment": "function/method calls, chaining",
 					"name": "meta.function.call.hybroid",
-					"begin": "((?:r#(?![Ss]elf|super|spawn|destroy|new))?[A-Za-z0-9_]+)(\\()",
+					"begin": "((?:r#(?!self|spawn|destroy|new))?[A-Za-z0-9_]+)(\\()",
 					"beginCaptures": {
 						"1": {
 							"name": "entity.name.function.hybroid"
@@ -454,7 +422,7 @@
 				{
 					"comment": "function/method calls with turbofish",
 					"name": "meta.function.call.hybroid",
-					"begin": "((?:r#(?![Ss]elf|super|spawn|destroy|new))?[A-Za-z0-9_]+)(?=:<.*>\\()",
+					"begin": "((?:r#(?!self|spawn|destroy|new))?[A-Za-z0-9_]+)(?=:<.*>\\()",
 					"beginCaptures": {
 						"1": {
 							"name": "entity.name.function.hybroid"
@@ -665,7 +633,7 @@
 			"patterns": [
 				{
 					"comment": "namespace (non-type, non-function path segment)",
-					"match": "(?<![A-Za-z0-9_])([A-Za-z0-9_]+)((?<!super|self|spawn|destroy|new):)",
+					"match": "(?<![A-Za-z0-9_])([A-Za-z0-9_]+)((?<!self|spawn|destroy|new):)",
 					"captures": {
 						"1": {
 							"name": "entity.name.namespace.hybroid"
@@ -891,12 +859,7 @@
 				{
 					"comment": "self",
 					"name": "variable.language.self.hybroid",
-					"match": "\\b[Ss]elf\\b"
-				},
-				{
-					"comment": "super",
-					"name": "variable.language.super.hybroid",
-					"match": "\\bsuper\\b"
+					"match": "\\bself\\b"
 				}
 			]
 		},
@@ -905,7 +868,7 @@
 				{
 					"comment": "variables",
 					"name": "variable.other.hybroid",
-					"match": "\\b(?<!(?<!\\.)\\.)(?:r#(?!([Ss]elf|super)))?[a-z0-9_]+\\b"
+					"match": "\\b(?<!(?<!\\.)\\.)(?:r#(?!(self)))?[a-z0-9_]+\\b"
 				}
 			]
 		}
