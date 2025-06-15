@@ -493,11 +493,6 @@
           "match": "\\b(const)\\b"
         },
         {
-          "comment": "type keyword",
-          "name": "keyword.declaration.type.hybroid storage.type.hybroid",
-          "match": "\\b(type)\\b"
-        },
-        {
           "comment": "enum keyword",
           "name": "keyword.declaration.enum.hybroid storage.type.hybroid",
           "match": "\\b(enum)\\b"
@@ -520,7 +515,7 @@
         {
           "comment": "other keywords",
           "name": "keyword.other.hybroid",
-          "match": "\\b(is|isnt|and|as|by|env|in|from|to|new|pub|spawn|use|with|destroy)\\b"
+          "match": "\\b(is|isnt|and|as|by|env|every|in|from|to|new|pub|spawn|use|with|destroy)\\b"
         },
         {
           "comment": "fn",
