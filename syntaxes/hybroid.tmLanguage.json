@@ -550,7 +550,7 @@
         {
           "comment": "math operators",
           "name": "keyword.operator.math.hybroid",
-          "match": "(([+%]|(\\*(?!\\w)))(?!=))|(-(?!>))|(/(?!/))"
+          "match": "(([+%]|(\\*))(?!=))|(-(?!>))|(/(?!/))|\\\\(?!\\\\)"
         },
         {
           "comment": "less than, greater than (special case)",
