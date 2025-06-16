@@ -695,7 +695,7 @@
         {
           "comment": "primitive types",
           "name": "entity.name.type.primitive.hybroid",
-          "match": "\\b(bool|string|list|map)\\b"
+          "match": "\\b(bool|text|list|map)\\b"
         },
         {
           "comment": "struct declarations",
