@@ -73,5 +73,14 @@
       "  $2",
       "}"
     ]
+  },
+  "entity declaration": {
+    "prefix": "entity",
+    "body": [
+      "entity ${1:name} {",
+      "  spawn(fixed x, y) {}",
+      "  destroy() {}",
+      "}"
+    ]
   }
 }
