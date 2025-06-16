@@ -1,7 +1,7 @@
 {
   "name": "hybroid",
-  "displayName": "Hybroid",
-  "description": "Hybroid language support for Visual Studio Code",
+  "displayName": "Hybroid Live",
+  "description": "Hybroid Live language support for Visual Studio Code",
   "publisher": "HybroidTeam",
   "repository": {
     "url": "https://github.com/pewpewlive/hybroid-vscode"

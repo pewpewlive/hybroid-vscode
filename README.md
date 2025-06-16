@@ -1,6 +1,6 @@
-# Hybroid language support for Visual Studio Code
+# Hybroid Live language support for Visual Studio Code
 
-A VS Code extension that provides syntax highlighting and snippets for Hybroid.
+A VS Code extension that provides syntax highlighting and snippets for Hybroid Live.
 
 Language server support is planned and coming soon.
 
