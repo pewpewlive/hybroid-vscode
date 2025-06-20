@@ -20,3 +20,7 @@ Then just run `vsce package` to build the extension.
 ## License
 
 This project is licensed under MIT license.
+
+### Syntax highlighting
+
+The syntax highlighting is based on [VS Code default Rust syntax definition](https://github.com/microsoft/vscode/blob/main/extensions/rust/syntaxes/rust.tmLanguage.json).
