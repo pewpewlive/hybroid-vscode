@@ -5,41 +5,6 @@
   "comment": "Hybroid TextMate syntax, based on Rust syntax in https://github.com/microsoft/vscode/blob/main/extensions/rust/syntaxes/rust.tmLanguage.json",
   "patterns": [
     {
-      "comment": "boxed slice literal",
-      "begin": "(<)(\\[)",
-      "beginCaptures": {
-        "1": {
-          "name": "punctuation.brackets.angle.hybroid"
-        },
-        "2": {
-          "name": "punctuation.brackets.square.hybroid"
-        }
-      },
-      "end": ">",
-      "endCaptures": {
-        "0": {
-          "name": "punctuation.brackets.angle.hybroid"
-        }
-      },
-      "patterns": [
-        {
-          "include": "#block-comments"
-        },
-        {
-          "include": "#comments"
-        },
-        {
-          "include": "#lvariables"
-        },
-        {
-          "include": "#punctuation"
-        },
-        {
-          "include": "#types"
-        }
-      ]
-    },
-    {
       "comment": "use statements",
       "name": "meta.use.hybroid",
       "begin": "\\b(use)\\s",
@@ -528,14 +493,9 @@
           "match": "(\\^|\\||\\|\\||&&|<<|>>|!)(?!=)"
         },
         {
-          "comment": "logical AND, borrow references",
-          "name": "keyword.operator.borrow.and.hybroid",
-          "match": "&(?![&=])"
-        },
-        {
           "comment": "assignment operators",
           "name": "keyword.operator.assignment.hybroid",
-          "match": "(\\+=|-=|\\*=|/=|%=|\\^=|&=|\\|=|<<=|>>=)"
+          "match": "(\\+=|-=|\\*=|\\\\=|/=|%=|\\^=|&=|\\|=|<<=|>>=)"
         },
         {
           "comment": "single equal",
@@ -545,7 +505,7 @@
         {
           "comment": "comparison operators",
           "name": "keyword.operator.comparison.hybroid",
-          "match": "(=(=)?(?!>)|!=|<=|(?<!=)>=)"
+          "match": "(=(=)?(>)|!=|<=|(?<!=)>=)"
         },
         {
           "comment": "math operators",
