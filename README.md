@@ -9,7 +9,7 @@ Language server support is planned and coming soon.
 Download this extension:
 
 - Visual Studio Code marketplace: (coming soon)
-- `.vsix` extension: (coming soon)
+- `.vsix` extension: [GitHub Releases](https://github.com/pewpewlive/hybroid-vscode/releases/latest)
 
 ## Building it
 
