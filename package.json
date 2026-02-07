@@ -70,7 +70,7 @@
       }
     }
   },
-  "main": "./client/out/extension",
+  "main": "./out/extension",
   "scripts": {
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -b",
