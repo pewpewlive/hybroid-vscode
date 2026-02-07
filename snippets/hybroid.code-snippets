@@ -46,7 +46,7 @@
     "body": [
       "match ${1:key} {",
       "  ${2:condition} => $3",
-      "  _ => $4",
+      "  else => $4",
       "}"
     ]
   },
@@ -71,6 +71,15 @@
     "body": [
       "repeat ${1:condition} {",
       "  $2",
+      "}"
+    ]
+  },
+  "entity declaration": {
+    "prefix": "entity",
+    "body": [
+      "entity ${1:name} {",
+      "  spawn(fixed x, y) {}",
+      "  destroy() {}",
       "}"
     ]
   }
