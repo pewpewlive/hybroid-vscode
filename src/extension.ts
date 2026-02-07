@@ -1,55 +1,49 @@
-/* --------------------------------------------------------------------------------------------
- * Copyright (c) Microsoft Corporation. All rights reserved.
- * Licensed under the MIT License. See License.txt in the project root for license information.
- * ------------------------------------------------------------------------------------------ */
+import { workspace, ExtensionContext } from "vscode"
 
-import * as path from "path";
-import { workspace, ExtensionContext } from "vscode";
+import { LanguageClient, LanguageClientOptions, ServerOptions } from "vscode-languageclient/node"
 
-import { LanguageClient, LanguageClientOptions, ServerOptions } from "vscode-languageclient/node";
-
-let client: LanguageClient;
+let client: LanguageClient
 
 export function activate(context: ExtensionContext) {
-  console.log("Starting the language server...");
+  console.log("Starting the language server...")
 
-  const serverExecutable = "C:\\Users\\Dominykas\\Documents\\Development\\hybroid\\build\\hybroid-windows-x86_64.exe";
+  const serverExecutable =
+    "C:\\Users\\Dominykas\\Documents\\Development\\hybroid\\build\\hybroid-windows-x86_64.exe"
 
   // If the extension is launched in debug mode then the debug server options are used
   // Otherwise the run options are used
   const serverOptions: ServerOptions = {
     run: { command: serverExecutable, args: ["lsp"] },
     debug: { command: serverExecutable, args: ["lsp"] },
-  };
+  }
 
   // Options to control the language client
   const clientOptions: LanguageClientOptions = {
-    // Register the server for plain text documents
+    // Register the server for hybroid source files
     documentSelector: [{ scheme: "file", language: "hybroid" }],
     synchronize: {
       // Notify the server about file changes to '.clientrc files contained in the workspace
       fileEvents: workspace.createFileSystemWatcher("**/.clientrc"),
     },
-  };
+  }
 
   // Create the language client and start the client.
   client = new LanguageClient(
     "integratedHybroidLanguageServer",
     "Integrated Hybroid Language Server",
     serverOptions,
-    clientOptions
-  );
-
-  console.log()
+    clientOptions,
+  )
 
   // Start the client. This will also launch the server
-  client.start();
-  console.log(client.isRunning());
+  client.start()
+  console.log(client.isRunning())
+  console.log("Language server started.")
 }
 
 export function deactivate(): Thenable<void> | undefined {
   if (!client) {
-    return undefined;
+    return undefined
   }
-  return client.stop();
+  return client.stop()
 }

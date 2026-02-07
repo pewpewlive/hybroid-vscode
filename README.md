@@ -13,7 +13,7 @@ Download this extension:
 
 ## Building it
 
-You need to have node.js and vsce (`npm install -g @vscode/vsce`).
+You need to have bun and vsce (`bun add -g @vscode/vsce`).
 
 Then just do `vsce package` to build the extension.
 
