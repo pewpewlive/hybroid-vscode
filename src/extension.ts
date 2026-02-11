@@ -14,7 +14,7 @@ export function activate(context: ExtensionContext) {
   // Otherwise the run options are used
   const serverOptions: ServerOptions = {
     run: { command: serverExecutable, args: ["lsp"] },
-    debug: { command: serverExecutable, args: ["lsp"] },
+    debug: { command: serverExecutable, args: ["lsp", "--debug"] },
   }
 
   // Options to control the language client
