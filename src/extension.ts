@@ -13,8 +13,8 @@ export function activate(context: ExtensionContext) {
   // If the extension is launched in debug mode then the debug server options are used
   // Otherwise the run options are used
   const serverOptions: ServerOptions = {
-    run: { command: serverExecutable, args: ["lsp"] },
-    debug: { command: serverExecutable, args: ["lsp", "--debug"] },
+    run: { command: serverExecutable, args: ["language-server"] },
+    debug: { command: serverExecutable, args: ["language-server", "--debug"] },
   }
 
   // Options to control the language client
@@ -28,17 +28,11 @@ export function activate(context: ExtensionContext) {
   }
 
   // Create the language client and start the client.
-  client = new LanguageClient(
-    "integratedHybroidLanguageServer",
-    "Integrated Hybroid Language Server",
-    serverOptions,
-    clientOptions,
-  )
+  client = new LanguageClient("hybroidLS", "HybroidLS", serverOptions, clientOptions)
 
   // Start the client. This will also launch the server
   client.start()
-  console.log(client.isRunning())
-  console.log("Language server started.")
+  console.log("HybroidLS was started")
 }
 
 export function deactivate(): Thenable<void> | undefined {
