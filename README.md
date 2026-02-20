@@ -9,6 +9,15 @@ Download this extension:
 - Visual Studio Code marketplace: (coming soon)
 - `.vsix` extension: [GitHub releases](https://github.com/pewpewlive/hybroid-vscode/releases)
 
+## Configuration
+
+- `hybroid.languageServerPath`: Path to the Hybroid Language Server executable. If not specified, the hardcoded default will be used.
+- `hybroid.trace.server`: Traces the communication between VS Code and the language server.
+
+## Commands
+
+- `Hybroid: Restart Language Server`: Restarts the Hybroid Language Server.
+
 ## Building it
 
 1. Download Bun (if you don't have it already)

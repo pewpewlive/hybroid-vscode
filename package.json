@@ -48,15 +48,15 @@
     ],
     "configuration": {
       "type": "object",
-      "title": "Example configuration",
+      "title": "Hybroid",
       "properties": {
-        "languageServerExample.maxNumberOfProblems": {
-          "scope": "resource",
-          "type": "number",
-          "default": 100,
-          "description": "Controls the maximum number of problems produced by the server."
+        "hybroid.languageServerPath": {
+          "scope": "machine",
+          "type": "string",
+          "default": "",
+          "description": "Path to the Hybroid Language Server executable. If not specified, the hardcoded default will be used."
         },
-        "languageServerExample.trace.server": {
+        "hybroid.trace.server": {
           "scope": "window",
           "type": "string",
           "enum": [
@@ -68,7 +68,13 @@
           "description": "Traces the communication between VS Code and the language server."
         }
       }
-    }
+    },
+    "commands": [
+      {
+        "command": "hybroid.restartLanguageServer",
+        "title": "Hybroid: Restart Language Server"
+      }
+    ]
   },
   "main": "./out/extension",
   "scripts": {
