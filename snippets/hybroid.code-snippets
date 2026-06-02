@@ -2,7 +2,7 @@
   "function declaration": {
     "prefix": "fn",
     "body": [
-      "fn ${1:name}(${2:args}) ${3:return_types} {",
+      "fn ${1:name}(${2:args}) -> ${3:return_types} {",
       "  $4",
       "}"
     ]
