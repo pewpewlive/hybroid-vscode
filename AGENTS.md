@@ -40,10 +40,27 @@ Press `F5` in VS Code to launch a new "Extension Development Host" window with t
 
 ## Language Server
 
-The extension currently starts a Language Server by executing a binary at a hardcoded path in `src/extension.ts`:
-`C:\Users\Dominykas\Documents\Development\hybroid\build\hybroid-windows-x86_64.exe`
+The extension starts a Language Server by resolving the binary path in this order (`src/extension.ts`):
 
-If you are developing on a different machine or have the binary in a different location, you must update the `serverExecutable` constant in `src/extension.ts`.
+1. The `hybroid.languageServerPath` user setting, if set.
+2. On non-Windows: a search of well-known install locations (`~/.hybroid/hybroid`, `~/.local/bin/hybroid`, `/usr/local/bin/hybroid`, `/opt/homebrew/bin/hybroid`).
+3. The platform-specific fallback in `DEV_FALLBACK_PATHS` (currently Windows only).
+4. The bare command name (`hybroid` / `hybroid.exe`).
+
+This ordering exists because VS Code on macOS is launched with a sanitized `PATH` that does not include shell-managed entries (e.g. `~/.hybroid`), so a bare-command spawn can fail with `ENOENT` even when the shell can run it.
+
+To run a freshly built Go binary during development, set the user setting to the absolute path of the binary, e.g.:
+
+- macOS: `/Users/you/code/hybroid-live/hybroid`
+- Linux: `/home/you/code/hybroid-live/hybroid`
+- Windows: `C:\Users\you\Development\hybroid-live\hybroid.exe`
+
+To update a globally installed copy on macOS:
+```
+cp hybroid ~/.hybroid/hybroid
+```
+
+The Go CLI exposes the `language-server` subcommand, which is what the client invokes.
 
 ## Development Conventions
 

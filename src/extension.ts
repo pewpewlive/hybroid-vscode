@@ -1,8 +1,32 @@
+import { existsSync } from "fs"
+import { homedir } from "os"
+import { join } from "path"
 import { workspace, ExtensionContext, commands, window } from "vscode"
 
 import { LanguageClient, LanguageClientOptions, ServerOptions } from "vscode-languageclient/node"
 
 let client: LanguageClient
+
+const DEV_FALLBACK_PATHS: Record<string, string> = {
+  win32: "C:\\Users\\Dominykas\\Documents\\Development\\hybroid\\build\\hybroid-windows-x86_64.exe",
+}
+
+function findBinaryInHome(name: string): string | undefined {
+  const home = homedir()
+  const candidates = [
+    join(home, ".hybroid", name),
+    join(home, ".local", "bin", name),
+    join(home, ".local", "share", "hybroid", "bin", name),
+    join("/usr/local/bin", name),
+    join("/opt/homebrew/bin", name),
+  ]
+  for (const candidate of candidates) {
+    if (existsSync(candidate)) {
+      return candidate
+    }
+  }
+  return undefined
+}
 
 function getLanguageServerPath(): string {
   const config = workspace.getConfiguration("hybroid")
@@ -10,7 +34,14 @@ function getLanguageServerPath(): string {
   if (path && path.trim() !== "") {
     return path
   }
-  return "C:\\Users\\Dominykas\\Documents\\Development\\hybroid\\build\\hybroid-windows-x86_64.exe"
+  const exeName = process.platform === "win32" ? "hybroid.exe" : "hybroid"
+  if (process.platform !== "win32") {
+    const home = findBinaryInHome(exeName)
+    if (home) {
+      return home
+    }
+  }
+  return DEV_FALLBACK_PATHS[process.platform] ?? exeName
 }
 
 async function startLanguageServer() {
