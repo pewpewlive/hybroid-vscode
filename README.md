@@ -1,4 +1,4 @@
-# Hybroid language support for Visual Studio Code
+# Hybroid Live language support for Visual Studio Code
 
 A VS Code extension that provides syntax highlighting, snippets and language server support for Hybroid.
 
@@ -7,7 +7,7 @@ A VS Code extension that provides syntax highlighting, snippets and language ser
 Download this extension:
 
 - Visual Studio Code marketplace: (coming soon)
-- `.vsix` extension: [GitHub releases](https://github.com/pewpewlive/hybroid-vscode/releases)
+- `.vsix` extension: [GitHub Releases](https://github.com/pewpewlive/hybroid-vscode/releases/latest)
 
 ## Configuration
 
@@ -29,3 +29,7 @@ Download this extension:
 ## License
 
 This project is licensed under MIT license.
+
+### Syntax highlighting
+
+The syntax highlighting is based on [VS Code default Rust syntax definition](https://github.com/microsoft/vscode/blob/main/extensions/rust/syntaxes/rust.tmLanguage.json).
