@@ -62,6 +62,16 @@ cp hybroid ~/.hybroid/hybroid
 
 The Go CLI exposes the `language-server` subcommand, which is what the client invokes.
 
+### Single-file mode
+
+When VS Code opens a `.hyb` file *without* a containing folder (no `rootUri` is sent to the server), the language server falls back to two strategies, in order:
+
+1. **Project marker walk**: it walks up the parent directories looking for `hybconfig.toml`. If found, the file is treated as part of that project, and the rest of the workspace is pre-analyzed for full cross-file diagnostics. This mirrors how `tsserver` discovers a `tsconfig.json` for loose files.
+2. **Stray-file scope**: if no marker is found, only the opened file is analyzed. `use` statements that point to other files will surface as `hyb035W` (truthful — those environments really are not in scope), and a single one-shot **Information** diagnostic is published at the top of the file:
+   > *This file is open without its Hybroid project. Open the folder containing `hybconfig.toml` to resolve all `use` references.*
+
+Opening the folder (File → Open Folder… in VS Code) is the recommended workflow and avoids the hint entirely.
+
 ## Development Conventions
 
 ### Syntax Highlighting
