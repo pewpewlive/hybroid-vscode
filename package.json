@@ -81,6 +81,7 @@
     "vscode:prepublish": "bun compile",
     "compile": "tsc -b",
     "watch": "tsc -b -w",
+    "test": "bun test src/test",
     "lint": "eslint ./client/src ./server/src --ext .ts,.tsx"
   },
   "dependencies": {
