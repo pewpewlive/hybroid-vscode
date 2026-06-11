@@ -2,6 +2,13 @@
 
 A VS Code extension that provides syntax highlighting, snippets and language server support for Hybroid.
 
+## Usage:
+
+Download this extension:
+
+- Visual Studio Code marketplace: [Download here](https://marketplace.visualstudio.com/items?itemName=HybroidTeam.hybroid)
+- `.vsix` file: [GitHub Releases](https://github.com/pewpewlive/hybroid-vscode/releases/latest)
+
 ## Configuration
 
 - `hybroid.languageServerPath`: Path to the Hybroid Language Server executable. If not specified, the hardcoded default will be used.
@@ -10,6 +17,14 @@ A VS Code extension that provides syntax highlighting, snippets and language ser
 ## Commands
 
 - `Hybroid: Restart Language Server`: Restarts the Hybroid Language Server.
+
+## Building it
+
+1. Download Bun (if you don't have it already)
+2. Clone this repository
+3. Run `bun install` to install dependencies
+4. Download VSCE: `bun add -g @vscode/vsce`
+5. Run `vsce package` to build the extension. You should see a `.vsix` file in the root of the project.
 
 ## License
 
